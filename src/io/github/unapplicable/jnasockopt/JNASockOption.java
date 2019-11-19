@@ -1,4 +1,4 @@
-package org.jnasockopt;
+package io.github.unapplicable.jnasockopt;
 
 // This enum contains all the socket options used on any platform
 // A perl script translates these into the appropriate values for each platform

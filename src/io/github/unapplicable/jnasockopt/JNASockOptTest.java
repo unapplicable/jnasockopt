@@ -1,4 +1,4 @@
-package org.jnasockopt;
+package io.github.unapplicable.jnasockopt;
 
 // (c) 2015 Alex Bligh
 // Released under the Apache licence - see LICENSE for details

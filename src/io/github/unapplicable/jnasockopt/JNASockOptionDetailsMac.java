@@ -1,4 +1,4 @@
-package org.jnasockopt;
+package io.github.unapplicable.jnasockopt;
 
 public class JNASockOptionDetailsMac extends JNASockOptionDetails {
 

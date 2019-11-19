@@ -1,4 +1,4 @@
-package org.jnasockopt;
+package io.github.unapplicable.jnasockopt;
 
 // (c) 2015 Alex Bligh
 // Released under the Apache licence - see LICENSE for details
@@ -56,8 +56,8 @@ public class JNASockOptionDetails {
 	}
 	
 	protected JNASockOptionDetails () {
-		optionMap = new HashMap<JNASockOption, Integer>();
-		levelMap = new HashMap<JNASockOptionLevel, Integer>();
+		optionMap = new HashMap<>();
+		levelMap = new HashMap<>();
 	}
 	
 	protected void putOption(JNASockOption key, int value) {

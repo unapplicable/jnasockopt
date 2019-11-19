@@ -1,4 +1,4 @@
-package org.jnasockopt;
+package io.github.unapplicable.jnasockopt;
 
 public class JNASockOptionDetailsLinux extends JNASockOptionDetails {
 

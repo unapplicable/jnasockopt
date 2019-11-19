@@ -1,4 +1,4 @@
-package org.jnasockopt;
+package io.github.unapplicable.jnasockopt;
 
 // (c) 2015 Alex Bligh
 // Released under the Apache licence - see LICENSE for details
@@ -34,8 +34,9 @@ public class JNASockOpt {
             FileInputStream in = (FileInputStream)s.getInputStream();
             FileDescriptor fd = in.getFD();
             return fdField.getInt(fd);
-        } catch (Exception e) { } 
-        return -1; 
+        } catch (Exception e) {
+            return -1;
+        }
     }   
  
     public static int getOutputFd(Socket s) {
@@ -43,8 +44,9 @@ public class JNASockOpt {
             FileOutputStream in = (FileOutputStream)s.getOutputStream();
             FileDescriptor fd = in.getFD();
             return fdField.getInt(fd);
-        } catch (Exception e) { } 
-        return -1; 
+        } catch (Exception e) {
+            return -1;
+        }
     }   
  
     public static int getFd(Socket s) {
