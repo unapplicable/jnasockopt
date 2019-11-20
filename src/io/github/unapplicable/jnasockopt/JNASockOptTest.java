@@ -3,9 +3,11 @@ package io.github.unapplicable.jnasockopt;
 // (c) 2015 Alex Bligh
 // Released under the Apache licence - see LICENSE for details
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.nio.channels.SocketChannel;
 
 // Run using
 // java -Djna.nosys=true -jar jnasockopt.jar JNASockOptTest
@@ -15,7 +17,19 @@ import java.net.Socket;
 public class JNASockOptTest {
 	   	
 	public static void main(String args[]) throws Exception {
-		Socket sock = new Socket ();
+        try {
+            System.out.println("Trying to set TCP_KEEP* on SocketChannel...");
+            SocketChannel sc = SocketChannel.open();
+            JNASockOpt.setSockOpt(sc, JNASockOptionLevel.SOL_TCP, JNASockOption.TCP_KEEPCNT, 2);
+            JNASockOpt.setSockOpt(sc, JNASockOptionLevel.SOL_TCP, JNASockOption.TCP_KEEPINTVL, 5);
+            JNASockOpt.setSockOpt(sc, JNASockOptionLevel.SOL_TCP, JNASockOption.TCP_KEEPIDLE, 5);
+            System.out.println("... succeeded setting TCP_KEEP* on SocketChannel");
+        } catch (IOException e) {
+            System.out.println("... failed to set TCP_KEEP* on SocketChannel");
+            e.printStackTrace();
+        }
+
+        Socket sock = new Socket ();
 		String connIp = "127.0.0.1";
 		int port = 22;
 		
@@ -43,7 +57,7 @@ public class JNASockOptTest {
 			System.out.println("... failed to set TCP_KEEPIDLE");
 			e.printStackTrace();
 		}
-		
+
 		sock.close();
 		System.out.println("Completed");
 	}
