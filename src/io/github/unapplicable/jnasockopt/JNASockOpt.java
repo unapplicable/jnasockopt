@@ -86,6 +86,7 @@ public class JNASockOpt {
     public static final int SO_RCVBUF = 0x1002; // that's under OS-X, but it's 8 under Linux
 
     private static native int setsockopt(int fd, int level, int option_name, Pointer option_value, int option_len) throws LastErrorException;
+    private static native int recv(int fd, Pointer buf, int len, int flags) throws LastErrorException;
 
     public static void setSockOpt(Socket socket, JNASockOptionLevel level, JNASockOption option, int option_value) throws IOException {
         if (socket == null) {
@@ -117,6 +118,17 @@ public class JNASockOpt {
             setsockopt(fd, lev, opt, val.getPointer(), 4);
         } catch (LastErrorException ex) {
             throw new IOException("setsockopt: " + strerror(ex.getErrorCode()));
+        }
+    }
+
+    public static boolean isDisconnected(SocketChannel socketChannel) {
+        int fd = getFd(socketChannel);
+        IntByReference buf = new IntByReference(0);
+        try {
+            int res = recv(fd, buf.getPointer(), 1, 2/*MSG_PEEK*/);
+            return res == 0;
+        } catch (LastErrorException ex) {
+            return ex.getErrorCode() != 11/*EAGAIN*/;
         }
     }
 

@@ -4,9 +4,8 @@ package io.github.unapplicable.jnasockopt;
 // Released under the Apache licence - see LICENSE for details
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.Socket;
+import java.net.*;
+import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 
 // Run using
@@ -20,7 +19,21 @@ public class JNASockOptTest {
         try {
             System.out.println("Trying to set TCP_KEEP* on SocketChannel...");
             SocketChannel sc = SocketChannel.open();
-            JNASockOpt.setSockOpt(sc, JNASockOptionLevel.SOL_TCP, JNASockOption.TCP_KEEPCNT, 2);
+            /*sc.connect(new InetSocketAddress("0.0.0.0", 1723));
+            sc.configureBlocking(false);
+			JNASockOpt.setSockOpt(sc, JNASockOptionLevel.SOL_TCP, JNASockOption.TCP_KEEPCNT, 2);
+			JNASockOpt.setSockOpt(sc, JNASockOptionLevel.SOL_TCP, JNASockOption.TCP_KEEPINTVL, 5);
+			JNASockOpt.setSockOpt(sc, JNASockOptionLevel.SOL_TCP, JNASockOption.TCP_KEEPIDLE, 5);
+			JNASockOpt.setSockOpt(sc, JNASockOptionLevel.SOL_SOCKET, JNASockOption.SO_KEEPALIVE, 1);
+
+			while (true) {
+				boolean res = JNASockOpt.isDisconnected(sc);
+				System.out.println(res);
+				if (res) {
+					break;
+				}
+			}*/
+			JNASockOpt.setSockOpt(sc, JNASockOptionLevel.SOL_TCP, JNASockOption.TCP_KEEPCNT, 2);
             JNASockOpt.setSockOpt(sc, JNASockOptionLevel.SOL_TCP, JNASockOption.TCP_KEEPINTVL, 5);
             JNASockOpt.setSockOpt(sc, JNASockOptionLevel.SOL_TCP, JNASockOption.TCP_KEEPIDLE, 5);
             System.out.println("... succeeded setting TCP_KEEP* on SocketChannel");
